@@ -1,0 +1,72 @@
+<div class="container">
+  <div class = "row">
+    <h1>System Events</h1>
+  </div>
+  <div class="row">
+    <table id="sysevents" class="table table-bordered table-striped table-condensed">
+      <thead>
+        <tr>
+          <th></th>
+          <th><select>
+                <option value="">--Process--</option>
+                <option value="1">Back Office</option>
+                <option value="2">Register</option>
+                <option value="3">Central Office</option>
+                <option value="4">Central Server</option>
+                <option value="5">Store Server</option>
+              </select></th>
+          <th><select>
+                <option value="">--Process Type--</option>
+                <option value="1">Logon</option>
+                <option value="2">Server Started</option>
+                <option value="3">Error</option>
+                <option value="4">ParseError</option>
+                <option value="5">Crash</option>
+              </select></th>
+          <th><select>
+                <option value="">--Location--</option>
+                <option value="1">Central Server</option>
+                <option value="2">8001</option>
+                <option value="3">8002</option>
+                <option value="4">8003</option>
+                <option value="5">8004</option>
+              </select></th>
+          <th><select>
+                <option value="">--Terminal--</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select></th>
+          <th></th>
+          <th><input type="text" name="associate"></th>
+          <th><button>Search</button></th>
+        </tr>
+
+        <tr>
+          <th>ID</th>
+          <th>Process</th>
+          <th>Process Type</th>
+          <th>Location</th>
+          <th>Terminal</th>
+          <th>Date/Time</th>
+          <th>Associate #</th>
+          <th>Text</th>
+        </tr>  
+      </thead>
+      <tbody>
+<!--         <tr ng-repeat="event in appEvents">
+          <td>{{event.id}}</td>
+          <td>{{event.application}}</td>
+          <td>{{event.type}}</td>
+          <td>{{event.location}}</td>
+          <td>{{event.terminal}}</td>
+          <td>{{event.dateTime}}</td>
+          <td>{{event.associate}}</td>
+          <td>{{event.eventText}}</td>
+ -->        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

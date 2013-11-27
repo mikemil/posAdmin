@@ -1,0 +1,90 @@
+<div class="container" ng-controller="AppEventController">
+  <div class = "row">
+    <h1>Application Events</h1>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-2 col-sm-offset-10">
+      Search Limit:
+      <select name="limit" ng-model="limit" ng-options="limit as limit for limit in limits"></select>
+      <br/>
+    </div>
+  </div>
+
+  <div class="row">
+  <!-- put a spinning gif in here -->
+    <div class="spinner" ng-show="loading">Loading....</div>
+  <br/>
+  </div>
+
+  <div class="row">
+    <table id="appevents" class="table table-bordered table-striped table-condensed">
+      <thead>
+        <tr>
+          <th></th>
+          <th>
+            <!-- <select name="application" ng-model="application" ng-options="app.NAME for app in apps"> -->
+            <select name="application" ng-model="application" ng-options="app.APPLICATION_ID as app.NAME for app in apps">
+                <option value="">-- Application --</option>
+              </select></th>
+              <!-- TODO rewrite this to use the ng-options tag rather than hard-coding them -->
+          <th>
+             <select name="eventtype" ng-model="eventtype" ng-options="etype.id as etype.type for etype in eventtypes" style="width: 175px">
+                <option value="">-- Event Type --</option>
+              </select>
+            <!-- <select name="eventtype" ng_model="eventtype" style="width: 175px">
+                <option value="">--Event Type--</option>
+                <option value="1">Server Started</option>
+                <option value="2">Login Successful</option>
+                <option value="3">Download Failed</option>
+                <option value="4">Login Failed</option>
+                <option value="5">Txn Sequence Number Failure</option>
+                <option value="6">Emergency Cash Drawer Open Success</option>
+                <option value="7">Emergency Cash Drawer Open Failure</option>
+                <option value="7">Store txn not found in Central</option>
+              </select> -->
+          </th>
+          <th><select name="location" ng-model="location" ng-options="loc.LOCATION_NUMBER as loc.LOCATION_NUMBER for loc in locs">
+                <option value="">-- Location --</option>
+              </select></th>
+          <th><select name="terminal" ng-model="terminal" ng-options="term.TERMINAL_NAME as term.TERMINAL_NAME for term in terms">
+                <option value="">-- Terminal --</option>
+              </select></th>
+          <th>
+            <!-- <div class="form-horizontal" ng-controller="DatepickerController">
+                <input type="text" datepicker-popup="yyyy-MM-dd" ng-model="dt" is-open="opened" min="minDate" max="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" />
+                 <button class="btn btn-sm" ng-click="open()"><span class="glyphicon glyphicon-calendar"></span></button>
+            </div> -->
+          </th>        
+          <th><input type="text" ng_model="associate" name="associate" style="width: 100px"></th>
+          <th><button type="button" class="btn btn-primary btn-sm" ng-click="search()">
+                <span class="glyphicon glyphicon-search"></span> Search
+              </button></th>
+        </tr> 
+
+        <tr>
+          <th>ID</th>
+          <th>Application</th>
+          <th>Event Type</th>
+          <th>Location</th>
+          <th>Terminal</th>
+          <th>Date/Time</th>
+          <th>Associate #</th>
+          <th>Text</th>
+        </tr>  
+      </thead>
+      <tbody>
+         <tr ng-repeat="event in appevents">
+          <td>{{ event.APPLICATION_EVENT_ID }}</td>
+          <td>{{ getApplicationName(event.APPLICATION_ID) }}</td>
+          <td>{{ getEventType(event.EVENT_TYPE_ID) }}</td>
+          <td>{{ event.LOCATION_NUMBER }}</td>
+          <td>{{ event.TERMINAL_NAME }}</td>
+          <td>{{ event.EVENT_DATETIME | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+          <td>{{ event.EVENT_ASSOCIATE_NUMBER }}</td>
+          <td>{{ event.EVENT_TEXT }}</td>
+         </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

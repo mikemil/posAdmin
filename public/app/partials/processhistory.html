@@ -1,0 +1,68 @@
+<div class="container" ng-controller="ProcessHistoryController">
+  <div class = "row">
+    <h1>Process History</h1>
+  </div>
+
+  <div>
+    <form class="form-horizontal" role="form">
+      <div class="form-group">
+        <label for="businessdate" class="col-sm-2 control-label">Business Date</label>
+        <div class="form-horizontal" ng-controller="DatepickerController">
+          <input name="businessdate" type="text" datepicker-popup="yyyy-MM-dd" ng-model="$parent.businessdate" is-open="opened" min="minDate" max="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" />
+          <button class="btn btn-sm" ng-click="open()"><span class="glyphicon glyphicon-calendar"></span></button>
+        </div>
+      </div>
+      <div class="form-group">
+          <label for="limit" class="col-sm-2 control-label">Search Limit</label>
+          <div class="col-sm-10">
+            <select name="limit" ng-model="limit" ng-options="limit as limit for limit in limits"></select>
+        </div>
+      </div>
+       <div class="form-group">
+          <div class="col-sm-10 col-sm-offset-2">
+            <button type="button" class="btn btn-primary btn-sm" ng-click="search()">
+                <span class="glyphicon glyphicon-search"></span> Search</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="row">
+    <!-- put a spinning gif in here -->
+    <div class="spinner" ng-show="loading">Loading....</div>
+  <br/>
+  </div>
+
+  <div class="row">
+    <table id="histevents" class="table table-bordered table-striped table-condensed">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Process</th>
+          <th>Status</th>
+          <th>Records Expected</th>
+          <th>Records Processed</th> 
+          <th>Business Date</th>
+          <th>Start Datetime</th>
+          <th>Stop Datetime</th>
+          <th>Record Set</th>
+          <th>Location #</th>
+        </tr> 
+      </thead>
+      <tbody>
+        <tr ng-repeat="event in histevents">
+          <td>{{event.PROCESS_HISTORY_ID}}</td>
+          <td>{{getProcessName(event.PROCESS_ID)}}</td> 
+          <td>{{event.STATUS}}</td>
+          <td>{{event.RECORDS_EXPECTED}}</td>
+          <td>{{event.RECORDS_PROCESSED}}</td>
+          <td>{{event.BUSINESS_DATE | date:'yyyy-MM-dd'}}</td>
+          <td>{{event.START_DATETIME | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+          <td>{{event.STOP_DATETIME | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+          <td>{{event.RECORD_SET}}</td>
+          <td>{{event.LOCATION_NUMBER}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

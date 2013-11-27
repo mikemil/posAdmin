@@ -1,0 +1,43 @@
+<div class="modal-header">
+    <h3>Cart</h3>
+</div>
+<div class="modal-body">
+	<h4>Cart Header</h4>
+	<dl class="dl-horizontal">
+    	<dt>Cart Id:</dt><dd>{{cart.cartId }}</dd>
+    	<dt>Cart Name:</dt><dd>{{ cart.cartName }}</dd>
+    	<dt>Cart Status:</dt><dd>{{ cart.status }}</dd>
+    	<dt>Customer #:</dt><dd>{{ cart.customerNumber }}</dd>
+    	<dt>Associate #:</dt><dd>{{ cart.associateNumber }}</dd>
+    	<dt>Cart Date:</dt><dd>{{ cart.cartDate | date:'yyyy-MM-dd HH:mm:ss' }}</dd>
+    	<dt>Comments:</dt><dd>{{ cart.comments }}</dd>
+    </dl>
+    <table class="table table-bordered table-condensed table-striped">
+		<caption>Details</caption>
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Associate#</th>
+				<th>SKU</th>
+				<th>Qty</th>
+			</tr>	
+		</thead>
+		<tbody>
+			<tr ng-hide="details || cart.cartDetails.length > 0" class="error">
+				<td colspan="4">
+					<div class="text-center"><strong>No details</strong></div>
+            	</td>
+        	</tr>
+        	<tr ng-repeat="detail in cart.cartDetails">
+        		<td>{{ detail.cartDetailId }}</td>
+        		<td>{{ detail.associateNumber }}</td>
+        		<td>{{ detail.sku }}</td>
+        		<td>{{ detail.quantity }}</td>
+        	</tr>
+		</tbody>
+	</table>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="ok()">OK</button>
+    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+</div>

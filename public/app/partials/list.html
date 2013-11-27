@@ -1,0 +1,74 @@
+<div class="container" ng-controller="CartController">
+	<div class="row">
+    	<header>
+    		<h1>Search/List Shopping Carts</h1>
+    	</header>
+	</div>
+	<form id="cartgetform" name="cartgetform" class="form-horizontal">
+		<div class="control-group">
+			<label class="control-label" for="cartName">Cart Name</label>
+			<div class="controls">
+				<input type="text" name="cartName" ng-model="searchCartName">
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="status">Status</label>
+			<div class="controls">
+				<select name="status" ng-model="searchStatus">
+					<option value=""></option>
+					<option value="wip">Work In Progress</option>
+					<option value="locked">Locked</option>
+					<option value="closed">Closed</option>
+					<option value="available">Available</option>
+				</select>
+			</div>
+		</div>
+		<br/>
+		<div class="control-group">
+			<div class="controls">
+				<button id="cartgetBtn" type="button" class="btn btn-primary btn-sm" ng-click="getCarts()">
+                	<span class="glyphicon glyphicon-search"></span> Search
+              	</button>
+				<!-- <button id="cartgetBtn" type="button" class="btn btn-primary" ng-click="getCarts()">Search</button> -->
+			</div>
+		</div>
+	</form>
+	<br/>
+	<div>
+	<table class="table table-bordered table-condensed table-striped">
+		<caption>Carts</caption>
+		<thead>
+			<tr>
+				<th></th>
+				<th>Cart Id</th>
+				<th>Cart Name</th>
+				<th>Status</th>
+				<th>Cust#</th>
+				<th>Assoc#</th>
+				<th>Cart Date</th>
+				<th>Comment</th>
+				<th></th>
+			</tr>	
+		</thead>
+		<tbody>
+			<tr ng-hide="carts || carts.length > 0" class="error">
+				<td colspan="9">
+					<div class="text-center"><strong>No carts found</strong></div>
+            	</td>
+        	</tr>
+        	<tr ng-repeat="cart in carts">
+  				<td><a ng-click="deleteCart($index)"><span class="glyphicon glyphicon-trash"></span></a></td>
+        		<td>{{ cart.cartId }}</td>
+        		<td>{{ cart.cartName }}</td>
+        		<td>{{ cart.status }}</td>
+        		<td>{{ cart.customerNumber }}</td>
+        		<td>{{ cart.associateNumber }}</td>
+        		<td>{{ cart.cartDate | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+        		<td>{{ cart.comments }}</td>
+        		<td><button class="btn btn-primary" ng-click="open($index)">Details</button></td>
+        		<!-- <td><button class="btn btn-primary" onclick="alert('Waiting for angular ui.bootstrap plugin to support Bootstrap 3.0 for modal to work');">Details</button></td> -->
+        	</tr>
+		</tbody>
+	</table>
+	</div>
+</div>
