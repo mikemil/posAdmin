@@ -16,7 +16,6 @@ posApp.controller('CartController', function ($scope, $http, $modal, $log) {
 
 	$scope.getCarts = function () {
 		$scope.url = 'http://localhost:7001/restservices/v1/carts';
-		//$scope.url = 'http://j1002399win7lt:7001/restservices/v1/carts';
 		if ($scope.searchCartName && $scope.searchStatus) {
 			$scope.url +='?cartName='+$scope.searchCartName+'&status='+$scope.searchStatus;
 		} else if ($scope.searchCartName) {
@@ -25,7 +24,8 @@ posApp.controller('CartController', function ($scope, $http, $modal, $log) {
 			$scope.url +='?status='+$scope.searchStatus;
 		}
 		console.log('url: '+$scope.url);
-		$http({method: 'GET', url: $scope.url } )
+		//$http({method: 'GET', url: $scope.url } )
+		$http({method: 'GET', url: $scope.url, headers: {'ppos-user': '102', 'ppos-pswd': '102'} } )
 			.success(function(data, status) {
 		        $scope.status = status;
 		        $scope.carts = data;
