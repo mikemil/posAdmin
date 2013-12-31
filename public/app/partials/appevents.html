@@ -27,7 +27,6 @@
             <select name="application" ng-model="application" ng-options="app.APPLICATION_ID as app.NAME for app in apps">
                 <option value="">-- Application --</option>
               </select></th>
-              <!-- TODO rewrite this to use the ng-options tag rather than hard-coding them -->
           <th>
              <select name="eventtype" ng-model="eventtype" ng-options="etype.id as etype.type for etype in eventtypes" style="width: 175px">
                 <option value="">-- Event Type --</option>

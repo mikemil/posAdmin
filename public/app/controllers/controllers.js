@@ -192,18 +192,82 @@ posApp.controller('AppEventController', function ($scope, $http, Applications, L
 //****************************************************************************************************
 // controller for handling the System Events
 //****************************************************************************************************
-posApp.controller('SysEventController', function ($scope, $http) {
+posApp.controller('SysEventController', function ($scope, $http, Locations, Terminals) {
 
 	// controller initialization
 	init();
 
+	Locations.query(function (response) {
+		$scope.locs = response;
+	});
+
+	Terminals.query(function (response) {
+		$scope.terms = response;
+	});
+
 	function init() {
-		$scope.sysevents = [
-		 { id: '1', text:'Login successful', associateNumber:"102"},
-		 { id: '2', text:'Barcode parser ERROR', associateNumber:"102"}
+		$scope.eventtypes = [
+		 { id: '1', type:'Starting base install'},
+		 { id: '2', type:'Finished base install'},
+		 { id: '3', type:'Starting db upgrade'},
+		 { id: '4', type:'Finished db upgrade'},
+		 { id: '11', type:'Starting custom install'},
+		 { id: '12', type:'Finished custom install'},
+		 { id: '13', type:'Starting custom upgrade'},
+		 { id: '14', type:'Finished custom upgrade'}
 		];
 
+		$scope.loading = false;
+		$scope.limits = [10, 20, 50, 100];
+		$scope.limit = $scope.limits[0];
+		$scope.sysevents = [];
+		$scope.locs = [];
+		$scope.location = $scope.locs[0];
+		$scope.terms = [];
+		$scope.terminal = $scope.terms[0];
+		$scope.eventtype = 
+		$scope.associate = null;
+
+		createEventTypeMap();
+
 	};
+
+	function createEventTypeMap() {
+		$scope.eventTypeMap = {};
+		for (var i = 0; i < $scope.eventtypes.length; i++) {
+			$scope.eventTypeMap[$scope.eventtypes[i].id] = $scope.eventtypes[i].type;
+		}
+	};
+
+	$scope.search = function () {
+		$scope.url = '/sysevents?limit='+$scope.limit;
+		if ($scope.location) {
+			$scope.url += '&location='+$scope.location;
+		}
+		if ($scope.terminal) {
+			$scope.url += '&terminal='+$scope.terminal;
+		}
+		if ($scope.eventtype) {
+			$scope.url += '&eventtype='+$scope.eventtype;
+		}
+		console.log("url: "+$scope.url);
+		$scope.loading = true;
+		$http({method: 'GET', url: $scope.url } )
+			.success(function(data, status) {
+				$scope.loading = false;
+		        $scope.status = status;
+		        $scope.sysevents = data;
+		        console.log('search status='+status+' found '+$scope.sysevents.length+' sysevents');
+		        if ($scope.sysevents.length == 0)
+		        	alert("No entries found!");
+		      })
+			.error(function(data, status) {
+		        $scope.sysevents = [];
+		        $scope.status = status;
+		        console.log('search status='+status);
+		        //TODO need to show some type of error message here!!!
+		    });
+		};
 
 });
 

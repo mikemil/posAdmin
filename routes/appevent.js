@@ -4,7 +4,6 @@
  */
 
 var database = require('mysql-simple');
-// Port number is optional
 database.init('root', 'root', 'dev_store_trunk', 'localhost', 3306);
 
 exports.getAll = function(req, res){
@@ -97,4 +96,33 @@ exports.getProcessHistory = function(req, res){
    	console.log('sql stmt:'+sql);
 
    	execQuery(sql, values, res);
+};
+
+exports.getSysEvents = function(req, res){
+    var queryParms = [
+      {name: 'location',    colName: 'LOCATION_NUMBER=?',     type: 'string'},
+      {name: 'eventtype',   colName: 'EVENT_TYPE=?',          type: 'int'}
+    ];
+
+    var baseSql = 'SELECT * FROM SYSTEM_EVENT';
+    var queryClause = ' WHERE ';
+    var values = [];
+
+    for(key in queryParms) {
+      if (req.query[queryParms[key].name]) {
+        if (values.length> 0) queryClause += ' AND ';    
+        queryClause += queryParms[key].colName;
+        values.push( queryParms[key].type === 'int' ? parseInt(req.query[queryParms[key].name]) : req.query[queryParms[key].name] );
+      }
+    }
+    var sql = baseSql;
+    if (values.length > 0)  {
+      sql += queryClause;
+    }
+
+    sql += ' LIMIT  ?';
+    values.push(parseInt(req.query.limit));
+    console.log('sql stmt:'+sql);
+
+    execQuery(sql, values, res);
 };

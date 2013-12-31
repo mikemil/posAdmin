@@ -7,65 +7,34 @@
       <thead>
         <tr>
           <th></th>
-          <th><select>
-                <option value="">--Process--</option>
-                <option value="1">Back Office</option>
-                <option value="2">Register</option>
-                <option value="3">Central Office</option>
-                <option value="4">Central Server</option>
-                <option value="5">Store Server</option>
+          <th><select name="eventtype" ng-model="eventtype" ng-options="etype.id as etype.type for etype in eventtypes">
+                <option value="">-- Event Type --</option>
               </select></th>
-          <th><select>
-                <option value="">--Process Type--</option>
-                <option value="1">Logon</option>
-                <option value="2">Server Started</option>
-                <option value="3">Error</option>
-                <option value="4">ParseError</option>
-                <option value="5">Crash</option>
+          <th>Date/Time</th>
+          <th><select name="location" ng-model="location" ng-options="loc.LOCATION_NUMBER as loc.LOCATION_NUMBER for loc in locs">
+                <option value="">-- Location --</option>
               </select></th>
-          <th><select>
-                <option value="">--Location--</option>
-                <option value="1">Central Server</option>
-                <option value="2">8001</option>
-                <option value="3">8002</option>
-                <option value="4">8003</option>
-                <option value="5">8004</option>
-              </select></th>
-          <th><select>
-                <option value="">--Terminal--</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-              </select></th>
-          <th></th>
-          <th><input type="text" name="associate"></th>
-          <th><button>Search</button></th>
+          <th><button type="button" class="btn btn-primary btn-sm" ng-click="search()">
+                <span class="glyphicon glyphicon-search"></span> Search
+              </button></th>
         </tr>
 
         <tr>
-          <th>ID</th>
-          <th>Process</th>
-          <th>Process Type</th>
-          <th>Location</th>
-          <th>Terminal</th>
+          <th>System Event Id</th>
+          <th>Event Type</th>
           <th>Date/Time</th>
-          <th>Associate #</th>
-          <th>Text</th>
+          <th>Location #</th>
+          <th>Event Text</th>
         </tr>  
       </thead>
       <tbody>
-<!--         <tr ng-repeat="event in appEvents">
-          <td>{{event.id}}</td>
-          <td>{{event.application}}</td>
-          <td>{{event.type}}</td>
-          <td>{{event.location}}</td>
-          <td>{{event.terminal}}</td>
-          <td>{{event.dateTime}}</td>
-          <td>{{event.associate}}</td>
-          <td>{{event.eventText}}</td>
- -->        </tr>
+         <tr ng-repeat="event in sysevents">
+          <td>{{event.SYSTEM_EVENT_ID}}</td>
+          <td>{{event.EVENT_TYPE}}</td>
+          <td>{{event.EVENT_DATETIME}}</td>
+          <td>{{event.LOCATION_NUMBER}}</td>
+          <td>{{event.EVENT_TEXT}}</td>
+        </tr>
       </tbody>
     </table>
   </div>

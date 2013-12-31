@@ -19,6 +19,7 @@ app.configure('development', function(){
 });
 
 app.get('/appevents', appevent.getAll);
+app.get('/sysevents', appevent.getSysEvents);
 app.get('/appevents/:id', appevent.getId);
 app.get('/applications', appevent.getApplications);
 app.get('/locations', appevent.getLocations);
